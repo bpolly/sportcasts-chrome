@@ -3,16 +3,54 @@ body {
   background-color: #f5f5f5;
   border-radius: 30px;
   text-align: center;
+  margin: 0;
 }
 
-h1 {
-  color: #2196F3;
+#header h1 {
+  color: white;
+  padding: 6px 0;
+  margin-bottom: 8px;
 }
 
-#loading {
+div#result, div#loading, div#error {
+  margin: 0 auto;
   display: none;
 }
 
-#error {
-  display: none;
+div#result td:not(#result-teams){
+  font-size: 0.8rem;
+  color: #545454;
+}
+
+div#result td:first-child {
+  text-align: center;
+}
+
+td#result-teams {
+  text-align: center;
+  color: black;
+  font-size: 1.0rem;
+  padding-bottom: 10px;
+}
+
+#result table .fa {
+  color: #f96269;
+  font-size: 17px;
+}
+
+div#result table {
+  width: 100%;
+}
+
+div#result table tr{
+  height: 24px;
+}
+
+div#header {
+  background: linear-gradient(to right, #f96269 , #fb7f26);
+  border-radius: 2px;
+}
+
+div#content-body {
+  margin: 7px;
 }

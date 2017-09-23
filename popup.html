@@ -5,24 +5,47 @@
     <script src="/js/teams.js"></script>
     <script src="/js/popup.js"></script>
     <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
-    <h1>Sportcasts</h1>
+    <div id="header">
+      <h1>Sportcasts</h1>
+    </div>
     <select id="team-select">
       <option disabled selected value> -- select an option -- </option>
     </select>
     <hr/>
-    <div id="loading">
-      <span class="sr-only">Loading...</span>
-    </div>
-    <div id="error">
-      There was an error loading the game data. Please try again.
-    </div>
-    <div id="result">
-      <p id="result-teams"></p>
-      <p id="result-date"></p>
-      <p id="result-time"></p>
-      <p id="result-networks"></p>
+    <div id="content-body">
+      <div id="loading">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div id="error">
+        There was an error loading the game data. Please try again.
+      </div>
+      <div id="result">
+        <table>
+          <tr>
+            <td id="result-teams" colspan="2"></td>
+          </tr>
+          <tr>
+            <td>
+              <i class="fa fa-calendar-o" aria-hidden="true"></i>
+            </td>
+            <td id="result-date"></td>
+          </tr>        <tr>
+            <td>
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+            </td>
+            <td id="result-time"></td>
+          </tr>
+          <tr>
+            <td>
+              <i class="fa fa-television" aria-hidden="true"></i>
+            </td>
+            <td id="result-networks"></td>
+          </tr>
+        </table>
+      </div>
     </div>
   </body>
 </html>

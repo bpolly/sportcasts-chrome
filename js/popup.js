@@ -7,7 +7,11 @@ $(document).ready(function(){
   })
 
   function titleize(string) {
-    return string.split(' ').map((val) => `${val[0].toUpperCase()}${val.substring(1, val.length)}`).join(' ');
+
+    return string.split(' ').map(function(val) {
+      if(val == 'l.a.') return 'L.A.';
+      return `${val[0].toUpperCase()}${val.substring(1, val.length)}`;
+    }).join(' ');
   }
 
   function populateSelectBox(){
@@ -24,9 +28,7 @@ $(document).ready(function(){
   }
 
   function fetchTeamGame(team){
-    $('#error').hide();
-    $('#result').hide();
-    $('#loading').show();
+    showLoading();
     $.ajax(
       {
         method: "POST",
@@ -42,17 +44,33 @@ $(document).ready(function(){
           $('#result-date').html(moment(time).format('MMMM Do, YYYY'));
           $('#result-time').html(moment(time).format('h:mm a'));
           $('#result-networks').html(networks);
+          showResult();
         },
         error: function(){
-          $('#loading').hide();
-          $('#error').show();
+          showError();
         },
         complete: function(result){
           console.log(result);
-          $('#loading').hide();
-          $('#result').show();
         }
       }
     );
+  }
+
+  function showResult(){
+    $('#error').hide();
+    $('#result').show();
+    $('#loading').hide();
+  }
+
+  function showError(){
+    $('#error').show();
+    $('#result').hide();
+    $('#loading').hide();
+  }
+
+  function showLoading(){
+    $('#error').hide();
+    $('#result').hide();
+    $('#loading').show();
   }
 });
