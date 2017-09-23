@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "Sportcasts Game Info",
+  "description": "This extension will find your favorite team's next game's broadcast information",
+  "version": "1.0",
+
+  "browser_action": {
+   "default_icon": "sportcasts-icon-small.png",
+   "default_popup": "popup.html"
+  },
+  "permissions": [
+    "https://sports-broadcasts.herokuapp.com/games"
+  ],
+  "web_accessible_resources": [
+    "webfonts/*.woff2"
+  ]
+}

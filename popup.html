@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/moment.js"></script>
+    <script src="/js/teams.js"></script>
+    <script src="/js/popup.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/popup.css">
+  </head>
+  <body>
+    <h1>Sportcasts</h1>
+    <select id="team-select">
+      <option disabled selected value> -- select an option -- </option>
+    </select>
+    <hr/>
+    <div id="loading">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div id="error">
+      There was an error loading the game data. Please try again.
+    </div>
+    <div id="result">
+      <p id="result-teams"></p>
+      <p id="result-date"></p>
+      <p id="result-time"></p>
+      <p id="result-networks"></p>
+    </div>
+  </body>
+</html>
