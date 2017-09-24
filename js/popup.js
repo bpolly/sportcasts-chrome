@@ -36,13 +36,13 @@ $(document).ready(function(){
         data: { team1: team },
         timeout: 3000,
         success: function(result){
-          time = result[0].date;
+          date = result[0].date;
           homeTeam = result[0].home_team;
           awayTeam = result[0].away_team;
           networks = result[0].tv_networks;
           $('#result-teams').html(titleize(homeTeam) + " vs " + titleize(awayTeam));
-          $('#result-date').html(moment(time).format('MMMM Do, YYYY'));
-          $('#result-time').html(moment(time).format('h:mm a'));
+          displayDate(date);
+          displayTime(date);
           $('#result-networks').html(networks);
           showResult();
         },
@@ -55,6 +55,18 @@ $(document).ready(function(){
       }
     );
   }
+
+  function displayTime(date){
+    let timezoneGuess = moment.tz.guess();
+    let timeInTZ = moment.tz(date, timezoneGuess);
+    let abbr = moment.tz.zone(timezoneGuess).abbr(date);
+    $('#result-time').html(`${timeInTZ.format('h:mm a')} ${timeInTZ.zoneAbbr()}`);
+  }
+
+  function displayDate(date){
+    $('#result-date').html(moment.tz(date, moment.tz.guess()).format('MMMM Do, YYYY'));
+  }
+
 
   function showResult(){
     $('#error').hide();
