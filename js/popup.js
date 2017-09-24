@@ -39,7 +39,7 @@ $(document).ready(function(){
           date = result[0].date;
           homeTeam = result[0].home_team;
           awayTeam = result[0].away_team;
-          networks = result[0].tv_networks;
+          networks = result[0].tv_networks || 'TBD';
           $('#result-teams').html(titleize(homeTeam) + " vs " + titleize(awayTeam));
           displayDate(date);
           displayTime(date);

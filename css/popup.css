@@ -6,7 +6,7 @@ body {
   margin: 0;
 }
 
-#header h1 {
+#header h2 {
   color: white;
   padding: 6px 0;
   margin-bottom: 8px;
@@ -24,6 +24,11 @@ div#result td:not(#result-teams){
 
 div#result td:first-child {
   text-align: center;
+}
+
+#result td:last-child {
+    vertical-align: inherit;
+    padding-top: 3px;
 }
 
 td#result-teams {
