@@ -1,13 +1,19 @@
 $(document).ready(function(){
 
-  populateSelectBox();
+  var lastResult = {
+    date: null,
+    home_team: null,
+    away_team: null,
+    networks: null
+  }
+
+  getLastResult();
 
   $('#team-select').on('change', function() {
     fetchTeamGame(this.value);
   })
 
   function titleize(string) {
-
     return string.split(' ').map(function(val) {
       if(val == 'l.a.') return 'L.A.';
       return `${val[0].toUpperCase()}${val.substring(1, val.length)}`;
@@ -36,14 +42,12 @@ $(document).ready(function(){
         data: { team1: team },
         timeout: 3000,
         success: function(result){
-          date = result[0].date;
-          homeTeam = result[0].home_team;
-          awayTeam = result[0].away_team;
-          networks = result[0].tv_networks || 'TBD';
-          $('#result-teams').html(titleize(homeTeam) + " vs " + titleize(awayTeam));
-          displayDate(date);
-          displayTime(date);
-          $('#result-networks').html(networks);
+          lastResult.date = result[0].date;
+          lastResult.home_team = result[0].home_team;
+          lastResult.away_team = result[0].away_team;
+          lastResult.networks = result[0].tv_networks || 'TBD';
+          saveResult();
+          displayLastResult();
           showResult();
         },
         error: function(){
@@ -56,17 +60,29 @@ $(document).ready(function(){
     );
   }
 
-  function displayTime(date){
+  function displayLastResult(){
+    $('#result-teams').html(titleize(lastResult.home_team) + " vs " + titleize(lastResult.away_team));
+    $('#result-networks').html(lastResult.networks);
+    $('#result-date').html(formatDate);
+    $('#result-time').html(formatTime);
+  }
+
+  function formatTime(){
+    var date = lastResult.date;
     let timezoneGuess = moment.tz.guess();
     let timeInTZ = moment.tz(date, timezoneGuess);
     let abbr = moment.tz.zone(timezoneGuess).abbr(date);
-    $('#result-time').html(`${timeInTZ.format('h:mm a')} ${timeInTZ.zoneAbbr()}`);
+    return `${timeInTZ.format('h:mm a')} ${timeInTZ.zoneAbbr()}`;
   }
 
-  function displayDate(date){
-    $('#result-date').html(moment.tz(date, moment.tz.guess()).format('MMMM Do, YYYY'));
+  function formatDate(){
+    var date = lastResult.date;
+    return moment.tz(date, moment.tz.guess()).format('MMMM Do, YYYY');
   }
 
+  function lastResultExists(){
+    return (lastResult.date != null && lastResult.home_team != null && lastResult.away_team != null && lastResult.networks != null);
+  }
 
   function showResult(){
     $('#error').hide();
@@ -84,5 +100,25 @@ $(document).ready(function(){
     $('#error').hide();
     $('#result').hide();
     $('#loading').show();
+  }
+
+  function getLastResult(){
+    console.log('hello');
+    chrome.storage.local.get('lastResult',function(result){
+      console.log(result);
+      if(result.lastResult != null){
+        lastResult = result.lastResult;
+        console.log(lastResult);
+        showResult();
+        displayLastResult();
+      }
+      populateSelectBox();
+    });
+  }
+
+  function saveResult(){
+    chrome.storage.local.set({'lastResult': lastResult},function(){
+      console.log("storage updated: " + lastResult);
+    });
   }
 });

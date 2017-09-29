@@ -10,6 +10,7 @@
    "default_popup": "popup.html"
   },
   "permissions": [
+    "storage",
     "https://sports-broadcasts.herokuapp.com/games"
   ],
   "web_accessible_resources": [
